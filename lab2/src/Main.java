@@ -1,161 +1,179 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
-import java.util.Scanner;
+import java.util.Arrays;
 
 public class Main {
-    static Scanner s;
 
-    public static void main(String[] args) {
-        task1();
-        task2();
-        task3();
-        task4();
-        task5();
-    }
 
-    static void task1() {
-        System.out.print("Задание 1\n");
-        System.out.print("введите число: ");
-        int n = s.nextInt();
+    public static String taskone(String s) {
+        if (s == null || s.isEmpty()) return "";
+        int start = 0, maxLength = 0, maxStart = 0;
+        int[] charIndex = new int[256];
 
-        int count;
-        for(count = 0; n != 1; ++count) {
-            if (n % 2 == 0) {
-                n /= 2;
-            } else {
-                n = 3 * n + 1;
+        for (int end = 0; end < s.length(); end++) {
+            char c = s.charAt(end);
+            if (charIndex[c] >= start) {
+                start = charIndex[c] + 1;
+            }
+            charIndex[c] = end;
+            if (end - start + 1 > maxLength) {
+                maxLength = end - start + 1;
+                maxStart = start;
             }
         }
 
-        System.out.printf("число шагов: %d", count);
-        System.out.print("\n");
+        return s.substring(maxStart, maxStart + maxLength);
     }
 
-    static void task2() {
-        System.out.print("Задание 2\n");
-        System.out.print("введите число: ");
-        int n = s.nextInt();
-        int sum = 0;
+    public static int[] tasktwo(int[] arr1, int[] arr2) {
+        int[] result = new int[arr1.length + arr2.length];
+        int i = 0, j = 0, k = 0;
 
-        for(int i = 1; i <= n; ++i) {
-            int num = s.nextInt();
-            if (i % 2 == 0) {
-                sum -= num;
+        while (i < arr1.length && j < arr2.length) {
+            if (arr1[i] < arr2[j]) {
+                result[k++] = arr1[i++];
             } else {
+                result[k++] = arr2[j++];
+            }
+        }
+
+        while (i < arr1.length) {
+            result[k++] = arr1[i++];
+        }
+
+        while (j < arr2.length) {
+            result[k++] = arr2[j++];
+        }
+
+        return result;
+    }
+
+    public static int taskthree(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+
+        int maxSum = nums[0];
+        int currentSum = nums[0];
+
+        for (int i = 1; i < nums.length; i++) {
+            currentSum = Math.max(nums[i], currentSum + nums[i]);
+            maxSum = Math.max(maxSum, currentSum);
+        }
+
+        return maxSum;
+    }
+
+    public static int[][] taskfour(int[][] matrix) {
+        if (matrix == null || matrix.length == 0) return new int[0][0];
+
+        int n = matrix.length;
+        int[][] rotated = new int[n][n];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                rotated[j][n - 1 - i] = matrix[i][j];
+            }
+        }
+
+        return rotated;
+    }
+
+    public static int[] taskfive(int[] nums, int target) {
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[i] + nums[j] == target) {
+                    return new int[]{nums[i], nums[j]};
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public static int tasksix(int[][] arr) {
+        int sum = 0;
+        for (int[] row : arr) {
+            for (int num : row) {
                 sum += num;
             }
         }
-
-        System.out.printf("сумма ряда: %d", sum, "\n");
-        System.out.print("\n");
+        return sum;
     }
 
-    static void task3() {
-        System.out.print("Задание 3\n");
-        System.out.print("координата клада по X: ");
-        int klad_x = s.nextInt();
-        System.out.print("координата клада по Y: ");
-        int klad_y = s.nextInt();
-        int x = 0;
-        int y = 0;
-        int instruction = 0;
-        boolean klad = false;
+    public static int[] taskseven(int[][] arr) {
+        if (arr == null || arr.length == 0) return new int[0];
 
-        while(true) {
-            System.out.print("направление (север/юг/запад/восток) или 'стоп': ");
-            String direction = s.next();
-            if (direction.equals("стоп")) {
-                break;
+        int[] maxValues = new int[arr.length];
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == null || arr[i].length == 0) {
+                maxValues[i] = Integer.MIN_VALUE;
+                continue;
             }
 
-            System.out.print("количество шагов: ");
-            int steps = s.nextInt();
-            ++instruction;
-            switch (direction) {
-                case "север":
-                    y += steps;
-                    break;
-                case "юг":
-                    y -= steps;
-                    break;
-                case "запад":
-                    x -= steps;
-                    break;
-                case "восток":
-                    x += steps;
-                    break;
-                default:
-                    System.out.println("неверное направление");
-                    continue;
-            }
-
-            if (x == klad_x && y == klad_y) {
-                klad = true;
-                break;
-            }
-        }
-
-        if (klad) {
-            System.out.println("найден! количество указаний: " + instruction);
-        } else {
-            System.out.println("не найден((");
-        }
-
-        System.out.print("\n");
-    }
-
-    static void task4() {
-        System.out.print("Задание 4\n");
-        System.out.print("количество дорог: ");
-        int roads = s.nextInt();
-        int best_road = 0;
-        int height = 0;
-
-        for(int i = 1; i <= roads; ++i) {
-            System.out.print("количество туннелей на дороге " + i + ": ");
-            int num = s.nextInt();
-            int min_height = Integer.MAX_VALUE;
-
-            for(int j = 0; j < num; ++j) {
-                System.out.print("высота туннеля " + (j + 1) + ": ");
-                int tunnel_height = s.nextInt();
-                if (tunnel_height < min_height) {
-                    min_height = tunnel_height;
+            int max = arr[i][0];
+            for (int j = 1; j < arr[i].length; j++) {
+                if (arr[i][j] > max) {
+                    max = arr[i][j];
                 }
             }
+            maxValues[i] = max;
+        }
 
-            if (min_height > height) {
-                height = min_height;
-                best_road = i;
+        return maxValues;
+    }
+
+
+    public static int[][] taskeight(int[][] matrix) {
+        if (matrix == null || matrix.length == 0) return new int[0][0];
+
+        int n = matrix.length;
+        int[][] rotated = new int[n][n];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                rotated[n - 1 - j][i] = matrix[i][j];
             }
         }
 
-        System.out.println("номер дороги: " + best_road);
-        System.out.println("максимальная высота: " + height);
-        System.out.print("\n");
+        return rotated;
     }
 
-    static void task5() {
-        System.out.print("Задание 5\n");
-        System.out.print("введите трехзначное число: ");
-        int n = s.nextInt();
-        int digit1 = n / 100;
-        int digit2 = n / 10 % 10;
-        int digit3 = n % 10;
-        int sum = digit1 + digit2 + digit3;
-        int product = digit1 * digit2 * digit3;
-        if (sum % 2 == 0 && product % 2 == 0) {
-            System.out.println("дважды четное");
-        } else {
-            System.out.println("не дважды четное");
+    public static void main(String[] args) {
+        System.out.println("1. Наибольшая подстрока без повторений: " +
+                taskone("aaaacabgnm"));
+
+        int[] arr1 = {11, 33, 54};
+        int[] arr2 = {18, 42, 78};
+        System.out.println("2. Объединение массивов: " +
+                Arrays.toString(tasktwo(arr1, arr2)));
+
+        int[] nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+        System.out.println("3. Максимальная сумма подмассива: " + taskthree(nums));
+
+        int[][] matrix = {
+                {4, 4, 17},
+                {4, 4, 17},
+                {4, 4, 17}
+        };
+        System.out.println("4. Поворот на 90° по часовой:");
+        printMatrix(taskfour(matrix));
+
+        int[] nums2 = {2, 7, 11, 15};
+        int target = 9;
+        System.out.println("5. Пара с суммой 9: " +
+                Arrays.toString(taskfive(nums2, target)));
+
+
+        System.out.println("6. Сумма элементов матрицы: " + tasksix(matrix));
+
+        System.out.println("7. Максимумы строк: " +
+                Arrays.toString(taskseven(matrix)));
+
+        System.out.println("8. Поворот на 90° против часовой:");
+        printMatrix(taskeight(matrix));
+    }
+
+    private static void printMatrix(int[][] matrix) {
+        for (int[] row : matrix) {
+            System.out.println(Arrays.toString(row));
         }
-
-    }
-
-    static {
-        s = new Scanner(System.in);
     }
 }
