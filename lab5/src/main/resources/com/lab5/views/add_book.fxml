@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.lab5.controllers.AddBookController" spacing="10">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <Label text="Добавить новую книгу" style="-fx-font-weight: bold;"/>
+
+    <GridPane hgap="10" vgap="10">
+        <columnConstraints>
+            <ColumnConstraints hgrow="NEVER"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <Label text="Название:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="titleField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Автор:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="authorField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Жанр:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="genreField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Год издания:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="yearField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="Количество страниц:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <TextField fx:id="pagesField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Отмена" onAction="#handleCancel"/>
+        <Button text="Добавить" onAction="#handleAddBook" defaultButton="true"/>
+    </HBox>
+</VBox>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.lab5.controllers.MainController">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <Label text="Читательский дневник" style="-fx-font-weight: bold;">
+        <font>
+            <Font size="20.0"/>
+        </font>
+    </Label>
+
+    <HBox spacing="10">
+        <Button fx:id="addBookBtn" text="Добавить книгу"/>
+    </HBox>
+
+    <Separator/>
+
+    <HBox spacing="10" VBox.vgrow="ALWAYS">
+        <VBox spacing="10" HBox.hgrow="ALWAYS">
+            <Label text="Список прочитанных книг:"/>
+            <TableView fx:id="booksTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="titleColumn" text="Название" prefWidth="200"/>
+                    <TableColumn fx:id="authorColumn" text="Автор" prefWidth="150"/>
+                    <TableColumn fx:id="yearColumn" text="Год" prefWidth="50"/>
+                </columns>
+            </TableView>
+        </VBox>
+
+        <VBox spacing="10" HBox.hgrow="ALWAYS">
+            <Label text="Отзывы:"/>
+            <ListView fx:id="reviewsList" VBox.vgrow="ALWAYS"/>
+
+            <Label text="Добавить отзыв:"/>
+            <TextArea fx:id="reviewText" promptText="Ваш отзыв..." wrapText="true" prefRowCount="3"/>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Оценка:"/>
+                <Slider fx:id="ratingSlider" min="1" max="5" value="3" showTickMarks="true" showTickLabels="true"
+                        majorTickUnit="1" minorTickCount="0" snapToTicks="true" blockIncrement="1"/>
+                <Label fx:id="ratingValue" text="3"/>
+            </HBox>
+
+            <Button fx:id="addReviewBtn" text="Добавить отзыв" defaultButton="true"/>
+        </VBox>
+    </HBox>
+</VBox>

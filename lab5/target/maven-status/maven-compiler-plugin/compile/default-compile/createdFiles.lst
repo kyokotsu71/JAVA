@@ -1,0 +1,6 @@
+com\lab5\controllers\MainController.class
+com\lab5\models\Book.class
+com\lab5\models\Review.class
+com\lab5\Main.class
+com\lab5\controllers\AddBookController.class
+com\lab5\Database.class
